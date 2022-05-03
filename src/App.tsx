@@ -4,7 +4,7 @@ import './App.css';
 
 import { Player } from '@remotion/player';
 import { MyVideo } from './components/MyVideo';
-import { SvgTest } from './components/SvgTest';
+import { PokemonSvg } from './components/PokemonSvg';
 const baseUrl = 'https://pokeapi.co/api/v2';
 
 type PokemonStat = {
@@ -18,30 +18,39 @@ type PokemonStat = {
 
 export type PokemonStats = PokemonStat[];
 
-type PlayerComponentProps = {
-  pokemonStats: PokemonStats;
+export type PlayerComponentProps = {
+  pokemon1Stats: PokemonStats;
+  pokemon2Stats: PokemonStats;
+  pokemon1Id: number;
+  pokemon2Id: number;
 };
 
-function PlayerComponent(props: any): any {
+function PlayerComponent(props: PlayerComponentProps): any {
   return (
     <Player
       component={MyVideo}
-      inputProps={props.pokemonStats}
+      inputProps={props}
       durationInFrames={240}
-      compositionWidth={1920}
-      compositionHeight={1080}
+      compositionWidth={420}
+      compositionHeight={600}
       fps={30}
-      autoPlay
+      // autoPlay
+      controls
     />
   );
 }
 
+type PokemonData = {
+  stats: PokemonStats;
+  id: number;
+};
+
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [pokemon1, setPokemon1] = useState('');
-  const [pokemon2, setPokemon2] = useState('');
-  const [pokemonStats, setPokemonStats] = useState([]);
-  const [pokemonFight, setPokemonFight] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(false);
+  const [pokemon1, setPokemon1] = useState<string>('');
+  const [pokemon2, setPokemon2] = useState<string>('');
+  const [pokemon1Data, setPokemon1Data] = useState<PokemonData>();
+  const [pokemon2Data, setPokemon2Data] = useState<PokemonData>();
 
   // useEffect(() => {
   //   axios.get(`${baseUrl}/pokemon/pikachu`).then(res => {
@@ -56,15 +65,24 @@ function App() {
 
   async function handleSubmit(e: any) {
     e.preventDefault();
+
+    setLoading(true);
+
     const pokemon1Data = await axios.get(`${baseUrl}/pokemon/${pokemon1}`);
     const pokemon2Data = await axios.get(`${baseUrl}/pokemon/${pokemon2}`);
 
-    setLoading(false);
+    setPokemon1Data({
+      stats: pokemon1Data.data.stats,
+      id: pokemon1Data.data.id,
+    });
+    setPokemon2Data({
+      stats: pokemon2Data.data.stats,
+      id: pokemon2Data.data.id,
+    });
 
-    setPokemonFight({ pokemon1Data, pokemon2Data });
+    setLoading(false);
   }
 
-  console.log(pokemonFight);
   return (
     <div style={{ background: 'black' }}>
       <form onSubmit={handleSubmit}>
@@ -80,11 +98,19 @@ function App() {
         />
         <button type="submit">Button</button>
       </form>
-      {/* <PlayerComponent pokemonStats={pokemonStats} /> */}
-      {pokemonFight !== undefined && pokemonFight.pokemon1Data && (
-        <SvgTest
-          svgUrl={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemonFight.pokemon1Data.data.order}.svg`}
-        />
+
+      {loading ? (
+        <p>loading</p>
+      ) : (
+        pokemon1Data &&
+        pokemon2Data && (
+          <PlayerComponent
+            pokemon1Id={pokemon1Data.id}
+            pokemon1Stats={pokemon1Data.stats}
+            pokemon2Id={pokemon2Data.id}
+            pokemon2Stats={pokemon2Data.stats}
+          />
+        )
       )}
     </div>
   );
