@@ -1,5 +1,5 @@
 import { Series } from 'remotion';
-import { PlayerComponentProps } from '../App';
+import { PlayerComponentProps } from './PlayerComponent';
 import { PokemonPresentation } from './PokemonPresentation';
 
 export const MyVideo = (props: PlayerComponentProps) => {

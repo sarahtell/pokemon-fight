@@ -1,10 +1,8 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import './App.css';
-
 import { Player } from '@remotion/player';
-import { MyVideo } from './components/MyVideo';
-import { PokemonSvg } from './components/PokemonSvg';
+import axios from 'axios';
+import { useState } from 'react';
+import { PlayerComponent } from './components/PlayerComponent';
+
 const baseUrl = 'https://pokeapi.co/api/v2';
 
 type PokemonStat = {
@@ -18,28 +16,6 @@ type PokemonStat = {
 
 export type PokemonStats = PokemonStat[];
 
-export type PlayerComponentProps = {
-  pokemon1Stats: PokemonStats;
-  pokemon2Stats: PokemonStats;
-  pokemon1Id: number;
-  pokemon2Id: number;
-};
-
-function PlayerComponent(props: PlayerComponentProps): any {
-  return (
-    <Player
-      component={MyVideo}
-      inputProps={props}
-      durationInFrames={240}
-      compositionWidth={420}
-      compositionHeight={600}
-      fps={30}
-      // autoPlay
-      controls
-    />
-  );
-}
-
 type PokemonData = {
   stats: PokemonStats;
   id: number;
@@ -51,17 +27,6 @@ function App() {
   const [pokemon2, setPokemon2] = useState<string>('');
   const [pokemon1Data, setPokemon1Data] = useState<PokemonData>();
   const [pokemon2Data, setPokemon2Data] = useState<PokemonData>();
-
-  // useEffect(() => {
-  //   axios.get(`${baseUrl}/pokemon/pikachu`).then(res => {
-  //     setLoading(false);
-  //     setPokemonStats(res.data.stats);
-  //   });
-  // }, []);
-
-  // if (loading || !pokemonStats) {
-  //   return <p>loading</p>;
-  // }
 
   async function handleSubmit(e: any) {
     e.preventDefault();
