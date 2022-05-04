@@ -12,14 +12,7 @@ export const PokemonPresentation = (props: PokemonPresentationProps) => {
   console.log(props);
   return (
     <div
-      style={{
-        flex: 1,
-        textAlign: 'center',
-        fontSize: '7em',
-        background: 'red',
-        width: '100%',
-        height: '100%',
-      }}
+      className='bg-green-400'
     >
       <PokemonSvg
         svgUrl={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${props.id}.svg`}
