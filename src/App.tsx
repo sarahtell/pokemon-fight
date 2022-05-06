@@ -1,5 +1,6 @@
 import { Player } from '@remotion/player';
 import axios from 'axios';
+import { Console } from 'console';
 import { useState } from 'react';
 import { PlayerComponent } from './components/PlayerComponent';
 
@@ -13,9 +14,6 @@ type PokemonStat = {
     url: string;
   };
 };
-
-
-
 
 export type PokemonStats = PokemonStat[];
 
@@ -50,21 +48,65 @@ function App() {
 
     setLoading(false);
   }
-
+  console.log(pokemon1)
   return (
-    <div style={{ background: 'black' }}>
+    <div style={{ background: 'white' }}>
       <form onSubmit={handleSubmit}>
-        <input
+        <input 
+        className="
+          form-control
+          block
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white
+          bg-clip-padding
+          border
+          border-solid
+          border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700
+          focus:bg-white
+          focus:border-blue-600 
+          focus:outline-none"
           onChange={e => setPokemon1(e.target.value)}
           type="text"
           name="pokemon1"
+          placeholder="First Pokémon"
         />
-        <input
+        <input 
+        className="
+          form-control
+          block
+          px-3
+          py-1.5
+          text-base
+          font-normal
+         text-gray-700
+         bg-white 
+          bg-clip-padding
+          border
+          border-solid
+         border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+         focus:text-gray-700
+         focus:bg-white
+         focus:border-blue-600 
+         focus:outline-none"
           onChange={e => setPokemon2(e.target.value)}
           type="text"
           name="pokemon2"
+          placeholder="Second Pokémon"
         />
-        <button type="submit">Button</button>
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">FIGHT!</button>
       </form>
 
       {loading ? (
@@ -73,8 +115,10 @@ function App() {
         pokemon1Data &&
         pokemon2Data && (
           <PlayerComponent
+            pokemon1Name={pokemon1}
             pokemon1Id={pokemon1Data.id}
             pokemon1Stats={pokemon1Data.stats}
+            pokemon2Name={pokemon2}
             pokemon2Id={pokemon2Data.id}
             pokemon2Stats={pokemon2Data.stats}
           />

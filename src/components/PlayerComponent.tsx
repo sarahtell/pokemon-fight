@@ -3,6 +3,8 @@ import { PokemonStats } from '../App';
 import { MyVideo } from './MyVideo';
 
 export type PlayerComponentProps = {
+  pokemon1Name: string
+  pokemon2Name: string
   pokemon1Stats: PokemonStats;
   pokemon2Stats: PokemonStats;
   pokemon1Id: number;
@@ -15,7 +17,7 @@ export function PlayerComponent(props: PlayerComponentProps): any {
       component={MyVideo}
       inputProps={props}
       durationInFrames={240}
-      compositionWidth={420}
+      compositionWidth={1080}
       compositionHeight={600}
       fps={30}
       // autoPlay
