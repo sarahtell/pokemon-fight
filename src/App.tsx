@@ -14,6 +14,9 @@ type PokemonStat = {
   };
 };
 
+
+
+
 export type PokemonStats = PokemonStat[];
 
 type PokemonData = {
