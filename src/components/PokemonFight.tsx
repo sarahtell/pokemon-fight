@@ -1,5 +1,4 @@
 import { useCurrentFrame } from 'remotion';
-import { PokemonStats } from '../App';
 import { PokemonPresentationProps } from './PokemonPresentation';
 
 
