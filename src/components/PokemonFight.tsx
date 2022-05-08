@@ -1,17 +1,9 @@
 import { useCurrentFrame } from 'remotion';
 import { PokemonStats } from '../App';
-import { PokemonSvg } from './PokemonSvg';
+import { PokemonPresentationProps } from './PokemonPresentation';
 
-type PokemonFightProps = {
-  name: string
-  stats: PokemonStats;
-  statsToTheLeft?: boolean;
-  willStartFight?: boolean;
-  children: JSX.Element;
-  id: number;
-};
 
-export const PokemonFight = (props: PokemonFightProps) => {
+export const PokemonFight = (props: PokemonPresentationProps) => {
   const frame = useCurrentFrame();
   return (
     <div
@@ -20,10 +12,10 @@ export const PokemonFight = (props: PokemonFightProps) => {
       {props.children}
       <div className={`pt-8 text-center ${props.statsToTheLeft ? 'pr-8' : 'pl-8'}`}>
       <p className='capitalize font-bold'>{props.name}</p>
-      <p className='uppercase'>{props.stats[0].stat.name}: {props.stats[0].base_stat}</p>
-      <p className='capitalize'>{props.stats[1].stat.name}: {props.stats[1].base_stat}</p>
-      <p className='capitalize'>{props.stats[2].stat.name}: {props.stats[2].base_stat}</p>
-      <p className='capitalize'>{props.stats[5].stat.name}: {props.stats[5].base_stat}</p>
+      <p>{'HP'}: {props.skills.hp}</p>
+      <p>{"Attack"}: {props.skills.attack}</p>
+      <p>{"Defense"}: {props.skills.defense}</p>
+      <p>{"Speed"}: {props.skills.speed}</p>
       </div>
     </div>
   );

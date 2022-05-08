@@ -50,7 +50,8 @@ function App() {
   }
   console.log(pokemon1)
   return (
-    <div>
+    <div className='flex w-full h-screen items-center justify-center space-y-10 flex-col'>
+      <h1 className='text-3xl font-sans'>Choose your Pokémon champions!</h1>
       <form onSubmit={handleSubmit} className = 'flex space-x-5 justify-center'>
         <input 
         className="

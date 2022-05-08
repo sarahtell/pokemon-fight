@@ -1,5 +1,6 @@
 import { AbsoluteFill, Series } from 'remotion';
 import { PlayerComponentProps } from './PlayerComponent';
+import { PokemonFight } from './PokemonFight';
 import { PokemonIntro } from './PokemonIntro';
 import { PokemonPresentation, Skills } from './PokemonPresentation';
 import { PokemonSvg } from './PokemonSvg';
@@ -20,7 +21,6 @@ export const MyVideo = (props: PlayerComponentProps) => {
   }
 
   return (
-    <AbsoluteFill className='flex items-center h-full'>
       <Series>
         <Series.Sequence durationInFrames={60}>
           <PokemonIntro />
@@ -35,16 +35,15 @@ export const MyVideo = (props: PlayerComponentProps) => {
         </Series.Sequence>
         <Series.Sequence durationInFrames={90}>
           {pokemon1Skills.speed >= pokemon2Skills.speed ? (
-              <PokemonPresentation name={props.pokemon1Name} skills={pokemon1Skills} stats={props.pokemon1Stats} id={props.pokemon1Id} statsToTheLeft>
+              <PokemonFight name={props.pokemon1Name} skills={pokemon1Skills} stats={props.pokemon1Stats} id={props.pokemon1Id} statsToTheLeft>
                 <PokemonSvg id={props.pokemon1Id} />
-              </PokemonPresentation>
+              </PokemonFight>
           ) : (
-            <PokemonPresentation name={props.pokemon2Name} skills={pokemon2Skills} stats={props.pokemon2Stats} id={props.pokemon2Id} statsToTheLeft >
+            <PokemonFight name={props.pokemon2Name} skills={pokemon2Skills} stats={props.pokemon2Stats} id={props.pokemon2Id} statsToTheLeft >
               <PokemonSvg id={props.pokemon2Id} />
-            </PokemonPresentation>
+            </PokemonFight>
           )}
         </Series.Sequence>
       </Series>
-    </AbsoluteFill>
   );
 };
