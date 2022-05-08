@@ -1,6 +1,5 @@
 import { Player } from '@remotion/player';
 import axios from 'axios';
-import { Console } from 'console';
 import { useState } from 'react';
 import { PlayerComponent } from './components/PlayerComponent';
 
@@ -50,11 +49,11 @@ function App() {
   }
   console.log(pokemon1)
   return (
-    <div className='flex w-full h-screen items-center justify-center space-y-10 flex-col'>
+    <div className='flex w-full h-screen items-center justify-center space-y-10 mt-10 flex-col'>
       <h1 className='text-3xl font-sans'>Choose your Pokémon champions!</h1>
-      <form onSubmit={handleSubmit} className = 'flex space-x-5 justify-center'>
-        <input 
-        className="
+      <form onSubmit={handleSubmit} className='flex space-x-5 justify-center'>
+        <input
+          className="
           form-control
           block
           px-3
@@ -80,8 +79,8 @@ function App() {
           name="pokemon1"
           placeholder="First Pokémon"
         />
-        <input 
-        className='
+        <input
+          className='
           form-control
           block
           px-3
@@ -109,23 +108,31 @@ function App() {
         />
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">FIGHT!</button>
       </form>
-    <div className='flex justify-center w-full'>
-      {loading ? (
-        <p>loading</p>
-      ) : (
-        pokemon1Data &&
-        pokemon2Data && (
-          <PlayerComponent
-            pokemon1Name={pokemon1}
-            pokemon1Id={pokemon1Data.id}
-            pokemon1Stats={pokemon1Data.stats}
-            pokemon2Name={pokemon2}
-            pokemon2Id={pokemon2Data.id}
-            pokemon2Stats={pokemon2Data.stats}
-          />
-        )
-      )}
+      <div className='flex justify-center w-full'>
+        {loading ? (
+          <p>loading</p>
+        ) : (
+          pokemon1Data &&
+          pokemon2Data && (
+            <PlayerComponent
+              pokemon1Name={pokemon1}
+              pokemon1Id={pokemon1Data.id}
+              pokemon1Stats={pokemon1Data.stats}
+              pokemon2Name={pokemon2}
+              pokemon2Id={pokemon2Data.id}
+              pokemon2Stats={pokemon2Data.stats}
+            />
+          )
+        )}
       </div>
+      <a
+        className="underline"
+        href="https://github.com/sarahtell/sarah-portfolio"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Code in GitHub 😎
+      </a>
     </div>
   );
 }
