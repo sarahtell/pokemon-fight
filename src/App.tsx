@@ -50,8 +50,8 @@ function App() {
   }
   console.log(pokemon1)
   return (
-    <div style={{ background: 'white' }}>
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleSubmit} className = 'flex space-x-5 justify-center'>
         <input 
         className="
           form-control
@@ -74,13 +74,13 @@ function App() {
           focus:bg-white
           focus:border-blue-600 
           focus:outline-none"
-          onChange={e => setPokemon1(e.target.value)}
+          onChange={e => setPokemon1(e.target.value.toLowerCase())}
           type="text"
           name="pokemon1"
           placeholder="First Pokémon"
         />
         <input 
-        className="
+        className='
           form-control
           block
           px-3
@@ -100,15 +100,15 @@ function App() {
          focus:text-gray-700
          focus:bg-white
          focus:border-blue-600 
-         focus:outline-none"
-          onChange={e => setPokemon2(e.target.value)}
+         focus:outline-none'
+          onChange={e => setPokemon2(e.target.value.toLowerCase())}
           type="text"
           name="pokemon2"
           placeholder="Second Pokémon"
         />
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">FIGHT!</button>
       </form>
-
+    <div className='flex justify-center w-full'>
       {loading ? (
         <p>loading</p>
       ) : (
@@ -124,6 +124,7 @@ function App() {
           />
         )
       )}
+      </div>
     </div>
   );
 }
