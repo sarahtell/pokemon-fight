@@ -10,22 +10,10 @@ export type PlayerComponentProps = {
   pokemon1Id: number;
   pokemon2Id: number;
   loading: boolean;
-  fightStarted: boolean;
+  error: string | undefined;
 };
 
 export function PlayerComponent(props: PlayerComponentProps): any {
-  if (props.pokemon1Stats.length === 0 || props.pokemon2Stats.length === 0) {
-    return null;
-  }
-
-  if (!props.fightStarted) {
-    return <p>Fight aborted!</p>;
-  }
-
-  if (props.loading) {
-    return <p>Loading!</p>;
-  }
-
   return (
     <Player
       component={MyVideo}

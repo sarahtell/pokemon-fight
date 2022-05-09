@@ -1,22 +1,30 @@
 import * as React from 'react';
 
 export interface FormProps {
-  handleSubmit: (e: any) => Promise<void>;
+  handleSubmit: (e: any) => void;
   handleOnchange1: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOnchange2: (e: React.ChangeEvent<HTMLInputElement>) => void;
   fightStarted: boolean;
-  setFightStarted: (p: any) => void;
+  handleReset: (p: any) => void;
+  error: string | undefined;
 }
 
 export default function Form(props: FormProps) {
   if (props.fightStarted) {
     return (
-      <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        onClick={() => props.setFightStarted(false)}
-      >
-        Abort fight!{' '}
-      </button>
+      <div className="flex flex-col space-y-5">
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          onClick={props.handleReset}
+        >
+          Abort fight!{' '}
+        </button>
+        {props.error && (
+          <p>
+            <strong>{props.error}</strong>
+          </p>
+        )}
+      </div>
     );
   }
 

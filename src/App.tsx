@@ -25,10 +25,11 @@ type PokemonData = {
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [fightStarted, setFightStarted] = useState<boolean>(false);
-  const [pokemon1, setPokemon1] = useState<string>('');
-  const [pokemon2, setPokemon2] = useState<string>('');
+  const [pokemon1, setPokemon1] = useState<string>();
+  const [pokemon2, setPokemon2] = useState<string>();
   const [pokemon1Data, setPokemon1Data] = useState<PokemonData>();
   const [pokemon2Data, setPokemon2Data] = useState<PokemonData>();
+  const [error, setError] = useState<string>();
 
   function handleOnchange1(e: React.ChangeEvent<HTMLInputElement>) {
     setPokemon1(e.target.value.toLowerCase());
@@ -37,22 +38,47 @@ function App() {
   function handleOnchange2(e: React.ChangeEvent<HTMLInputElement>) {
     setPokemon2(e.target.value.toLowerCase());
   }
+  function handleReset() {
+    setLoading(false);
+    setFightStarted(false);
+    setPokemon1(undefined);
+    setPokemon2(undefined);
+    setPokemon1Data(undefined);
+    setPokemon2Data(undefined);
+    setError(undefined);
+  }
 
-  async function handleOnSubmit(e: any) {
+  function handleOnSubmit(e: any) {
     e.preventDefault();
     setLoading(true);
 
-    const pokemon1Data = await axios.get(`${baseUrl}/pokemon/${pokemon1}`);
-    const pokemon2Data = await axios.get(`${baseUrl}/pokemon/${pokemon2}`);
+    if (!pokemon1 || !pokemon2) {
+      setError('Select two pokemons!');
+    }
 
-    setPokemon1Data({
-      stats: pokemon1Data.data.stats,
-      id: pokemon1Data.data.id,
-    });
-    setPokemon2Data({
-      stats: pokemon2Data.data.stats,
-      id: pokemon2Data.data.id,
-    });
+    axios
+      .get(`${baseUrl}/pokemon/${pokemon1}`)
+      .then(res => {
+        setPokemon1Data({
+          stats: res.data.stats,
+          id: res.data.id,
+        });
+      })
+      .catch(e => {
+        setError('Could not fetch pokemon!');
+      });
+
+    axios
+      .get(`${baseUrl}/pokemon/${pokemon2}`)
+      .then(res => {
+        setPokemon2Data({
+          stats: res.data.stats,
+          id: res.data.id,
+        });
+      })
+      .catch(e => {
+        setError('Could not fetch pokemon!');
+      });
 
     setFightStarted(true);
     setLoading(false);
@@ -61,26 +87,27 @@ function App() {
   return (
     <div className="flex w-full h-screen items-center justify-center space-y-10 mt-10 flex-col">
       <h1 className="text-3xl font-sans">Choose your Pokémon champions!</h1>
-
       <Form
         handleOnchange1={handleOnchange1}
         handleOnchange2={handleOnchange2}
         handleSubmit={handleOnSubmit}
         fightStarted={fightStarted}
-        setFightStarted={setFightStarted}
+        handleReset={handleReset}
+        error={error}
       />
-
       <div className="flex justify-center w-full">
-        <PlayerComponent
-          pokemon1Name={pokemon1}
-          pokemon1Id={pokemon1Data?.id || 0}
-          pokemon1Stats={pokemon1Data?.stats || []}
-          pokemon2Name={pokemon2}
-          pokemon2Id={pokemon2Data?.id || 0}
-          pokemon2Stats={pokemon2Data?.stats || []}
-          loading={loading}
-          fightStarted={fightStarted}
-        />
+        {!loading && pokemon1Data && pokemon2Data && fightStarted && (
+          <PlayerComponent
+            pokemon1Name={pokemon1 || ''}
+            pokemon1Id={pokemon1Data?.id || 0}
+            pokemon1Stats={pokemon1Data?.stats || []}
+            pokemon2Name={pokemon2 || ''}
+            pokemon2Id={pokemon2Data?.id || 0}
+            pokemon2Stats={pokemon2Data?.stats || []}
+            loading={loading}
+            error={error}
+          />
+        )}
       </div>
       <a
         className="underline"
