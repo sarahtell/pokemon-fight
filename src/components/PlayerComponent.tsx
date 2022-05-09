@@ -7,6 +7,8 @@ export type PlayerComponentProps = {
   pokemon2Name: string;
   pokemon1Stats: PokemonStats;
   pokemon2Stats: PokemonStats;
+  pokemon2Url: string;
+  pokemon1Url: string;
   pokemon1Id: number;
   pokemon2Id: number;
   loading: boolean;

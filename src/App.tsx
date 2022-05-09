@@ -1,4 +1,3 @@
-import { Player } from '@remotion/player';
 import axios from 'axios';
 import React, { useState } from 'react';
 import Form from './components/Form';
@@ -20,6 +19,7 @@ export type PokemonStats = PokemonStat[];
 type PokemonData = {
   stats: PokemonStats;
   id: number;
+  url: string;
 };
 
 function App() {
@@ -62,6 +62,7 @@ function App() {
         setPokemon1Data({
           stats: res.data.stats,
           id: res.data.id,
+          url: res.data.sprites.other.dream_world.front_default
         });
       })
       .catch(e => {
@@ -74,6 +75,7 @@ function App() {
         setPokemon2Data({
           stats: res.data.stats,
           id: res.data.id,
+          url: res.data.sprites.other.dream_world.front_default
         });
       })
       .catch(e => {
@@ -101,9 +103,11 @@ function App() {
             pokemon1Name={pokemon1 || ''}
             pokemon1Id={pokemon1Data?.id || 0}
             pokemon1Stats={pokemon1Data?.stats || []}
+            pokemon1Url={pokemon1Data?.url || ''}
             pokemon2Name={pokemon2 || ''}
             pokemon2Id={pokemon2Data?.id || 0}
             pokemon2Stats={pokemon2Data?.stats || []}
+            pokemon2Url={pokemon2Data?.url || ''}
             loading={loading}
             error={error}
           />

@@ -6,15 +6,10 @@ const Logo = React.forwardRef<SVGElement, SVGProps>((props, ref) => (
 ));
 
 type PokemonSvgProps= {
-  id?: number;
-  svgUrl?:string;
+  url: string
 }
 
 export function PokemonSvg(props: PokemonSvgProps) {
   const logo = useRef<SVGElement>(null);
-
-  const pokemonUrl =`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${props.id}.svg`
-  
-  return <Logo ref={logo} src={props.svgUrl || pokemonUrl} />;
-
+  return <Logo ref={logo} src={props.url} />;
 }
