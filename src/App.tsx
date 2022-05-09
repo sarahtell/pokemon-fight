@@ -62,7 +62,7 @@ function App() {
         setPokemon1Data({
           stats: res.data.stats,
           id: res.data.id,
-          url: res.data.sprites.other.dream_world.front_default
+          url: res.data.sprites.other.dream_world.front_default,
         });
       })
       .catch(e => {
@@ -75,7 +75,7 @@ function App() {
         setPokemon2Data({
           stats: res.data.stats,
           id: res.data.id,
-          url: res.data.sprites.other.dream_world.front_default
+          url: res.data.sprites.other.dream_world.front_default,
         });
       })
       .catch(e => {

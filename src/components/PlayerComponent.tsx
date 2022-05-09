@@ -24,8 +24,8 @@ export function PlayerComponent(props: PlayerComponentProps): any {
       compositionWidth={1080}
       compositionHeight={600}
       fps={30}
-      // autoPlay
-      controls
+      autoPlay
+      // controls
     />
   );
 }
