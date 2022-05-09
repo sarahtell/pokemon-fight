@@ -1,6 +1,7 @@
 import { Player } from '@remotion/player';
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Form from './components/Form';
 import { PlayerComponent } from './components/PlayerComponent';
 
 const baseUrl = 'https://pokeapi.co/api/v2';
@@ -23,14 +24,22 @@ type PokemonData = {
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [fightStarted, setFightStarted] = useState<boolean>(false);
   const [pokemon1, setPokemon1] = useState<string>('');
   const [pokemon2, setPokemon2] = useState<string>('');
   const [pokemon1Data, setPokemon1Data] = useState<PokemonData>();
   const [pokemon2Data, setPokemon2Data] = useState<PokemonData>();
 
-  async function handleSubmit(e: any) {
-    e.preventDefault();
+  function handleOnchange1(e: React.ChangeEvent<HTMLInputElement>) {
+    setPokemon1(e.target.value.toLowerCase());
+  }
 
+  function handleOnchange2(e: React.ChangeEvent<HTMLInputElement>) {
+    setPokemon2(e.target.value.toLowerCase());
+  }
+
+  async function handleOnSubmit(e: any) {
+    e.preventDefault();
     setLoading(true);
 
     const pokemon1Data = await axios.get(`${baseUrl}/pokemon/${pokemon1}`);
@@ -45,85 +54,33 @@ function App() {
       id: pokemon2Data.data.id,
     });
 
+    setFightStarted(true);
     setLoading(false);
   }
-  console.log(pokemon1)
+
   return (
-    <div className='flex w-full h-screen items-center justify-center space-y-10 mt-10 flex-col'>
-      <h1 className='text-3xl font-sans'>Choose your Pokémon champions!</h1>
-      <form onSubmit={handleSubmit} className='flex space-x-5 justify-center'>
-        <input
-          className="
-          form-control
-          block
-          px-3
-          py-1.5
-          text-base
-          font-normal
-          text-gray-700
-          bg-white
-          bg-clip-padding
-          border
-          border-solid
-          border-gray-300
-          rounded
-          transition
-          ease-in-out
-          m-0
-          focus:text-gray-700
-          focus:bg-white
-          focus:border-blue-600 
-          focus:outline-none"
-          onChange={e => setPokemon1(e.target.value.toLowerCase())}
-          type="text"
-          name="pokemon1"
-          placeholder="First Pokémon"
+    <div className="flex w-full h-screen items-center justify-center space-y-10 mt-10 flex-col">
+      <h1 className="text-3xl font-sans">Choose your Pokémon champions!</h1>
+
+      <Form
+        handleOnchange1={handleOnchange1}
+        handleOnchange2={handleOnchange2}
+        handleSubmit={handleOnSubmit}
+        fightStarted={fightStarted}
+        setFightStarted={setFightStarted}
+      />
+
+      <div className="flex justify-center w-full">
+        <PlayerComponent
+          pokemon1Name={pokemon1}
+          pokemon1Id={pokemon1Data?.id || 0}
+          pokemon1Stats={pokemon1Data?.stats || []}
+          pokemon2Name={pokemon2}
+          pokemon2Id={pokemon2Data?.id || 0}
+          pokemon2Stats={pokemon2Data?.stats || []}
+          loading={loading}
+          fightStarted={fightStarted}
         />
-        <input
-          className='
-          form-control
-          block
-          px-3
-          py-1.5
-          text-base
-          font-normal
-         text-gray-700
-         bg-white 
-          bg-clip-padding
-          border
-          border-solid
-         border-gray-300
-          rounded
-          transition
-          ease-in-out
-          m-0
-         focus:text-gray-700
-         focus:bg-white
-         focus:border-blue-600 
-         focus:outline-none'
-          onChange={e => setPokemon2(e.target.value.toLowerCase())}
-          type="text"
-          name="pokemon2"
-          placeholder="Second Pokémon"
-        />
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">FIGHT!</button>
-      </form>
-      <div className='flex justify-center w-full'>
-        {loading ? (
-          <p>loading</p>
-        ) : (
-          pokemon1Data &&
-          pokemon2Data && (
-            <PlayerComponent
-              pokemon1Name={pokemon1}
-              pokemon1Id={pokemon1Data.id}
-              pokemon1Stats={pokemon1Data.stats}
-              pokemon2Name={pokemon2}
-              pokemon2Id={pokemon2Data.id}
-              pokemon2Stats={pokemon2Data.stats}
-            />
-          )
-        )}
       </div>
       <a
         className="underline"

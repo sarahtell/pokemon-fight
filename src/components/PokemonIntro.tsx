@@ -1,9 +1,6 @@
-import { useCurrentFrame } from 'remotion';
 import { PokemonSvg } from './PokemonSvg';
 
 export const PokemonIntro = (props: any) => {
-    const frame = useCurrentFrame();
-
     return (
       <div className='bg-gradient-to-b from-white to-blue-500 w-full flex items-center justify-center'>
         <PokemonSvg 
