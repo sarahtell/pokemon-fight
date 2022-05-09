@@ -35,13 +35,29 @@ export const MyVideo = (props: PlayerComponentProps) => {
         </Series.Sequence>
         <Series.Sequence durationInFrames={90}>
           {pokemon1Skills.speed >= pokemon2Skills.speed ? (
+            <AbsoluteFill className='bg-gradient-to-b from-white to-blue-500 w-full flex items-center justify-center'>
+            <p className='capitalize -translate-y-10'>{props.pokemon1Name} starts because it is the fastest Pokémon!</p>
+            <div className='w-full flex flex-row -translate-y-3'>
               <PokemonFight name={props.pokemon1Name} skills={pokemon1Skills} stats={props.pokemon1Stats} id={props.pokemon1Id} statsToTheLeft>
                 <PokemonSvg id={props.pokemon1Id} />
               </PokemonFight>
+              <PokemonFight name={props.pokemon2Name} skills={pokemon2Skills} stats={props.pokemon2Stats} id={props.pokemon2Id} >
+                <PokemonSvg id={props.pokemon2Id} />
+              </PokemonFight>
+              </div>
+              </AbsoluteFill>
           ) : (
-            <PokemonFight name={props.pokemon2Name} skills={pokemon2Skills} stats={props.pokemon2Stats} id={props.pokemon2Id} statsToTheLeft >
-              <PokemonSvg id={props.pokemon2Id} />
-            </PokemonFight>
+            <AbsoluteFill className='bg-gradient-to-b from-white to-blue-500 w-full flex items-center justify-center'>
+            <p className='capitalize -translate-y-10'>{props.pokemon2Name} starts because it is the fastest Pokémon!</p>
+            <div className='w-full flex flex-row -translate-y-3'>
+              <PokemonFight name={props.pokemon1Name} skills={pokemon1Skills} stats={props.pokemon1Stats} id={props.pokemon1Id} statsToTheLeft>
+                <PokemonSvg id={props.pokemon1Id} />
+              </PokemonFight>
+              <PokemonFight name={props.pokemon2Name} skills={pokemon2Skills} stats={props.pokemon2Stats} id={props.pokemon2Id} >
+                <PokemonSvg id={props.pokemon2Id} />
+              </PokemonFight>
+              </div>
+              </AbsoluteFill>
           )}
         </Series.Sequence>
       </Series>

@@ -131,7 +131,7 @@ function App() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Code in GitHub 😎
+        Code in GitHub 😎 (work in progress!)
       </a>
     </div>
   );

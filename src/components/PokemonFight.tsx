@@ -6,7 +6,7 @@ export const PokemonFight = (props: PokemonPresentationProps) => {
   const frame = useCurrentFrame();
   return (
     <div
-      className={`bg-gradient-to-b from-white to-blue-500 w-full flex ${props.statsToTheLeft ? 'flex-row-reverse' : 'flex-row'} items-center justify-center`}
+      className={`w-full flex ${props.statsToTheLeft ? 'flex-row-reverse' : 'flex-row'} items-center justify-center`}
     >
       {props.children}
       <div className={`pt-8 text-center ${props.statsToTheLeft ? 'pr-8' : 'pl-8'}`}>
