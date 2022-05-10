@@ -22,9 +22,9 @@ export const MyVideo = (props: PlayerComponentProps) => {
 
   return (
     <>
-      <Audio src={audio} volume={0.5} />
+      <Audio src={audio} volume={0.5} startFrom={100} />
       <Series>
-        <Series.Sequence durationInFrames={60}>
+        <Series.Sequence durationInFrames={120}>
           <PokemonIntro />
         </Series.Sequence>
         <Series.Sequence durationInFrames={90}>

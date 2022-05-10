@@ -8,7 +8,9 @@ export const PokemonFight = (props: PokemonPresentationProps) => {
         props.statsToTheLeft ? 'flex-row-reverse' : 'flex-row'
       } items-center justify-center`}
     >
-      <PokemonSvg url={props.url} />
+      <div className='flex w-1/2'>
+        <PokemonSvg url={props.url} />
+      </div>
       <div
         className={`pt-8 text-center ${props.statsToTheLeft ? 'pr-8' : 'pl-8'}`}
       >
