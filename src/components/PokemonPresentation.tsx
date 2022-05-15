@@ -22,17 +22,22 @@ export const PokemonPresentation = (props: PokemonPresentationProps) => {
   const config = useVideoConfig();
   const translate = interpolate(
     frame,
-    [config.durationInFrames * 0.5, config.durationInFrames],
-    [0, 1]
+    [
+      config.durationInFrames * 0.0,
+      config.durationInFrames * 0.3,
+      config.durationInFrames,
+    ],
+    [0, 1, 1]
   );
   const opacity = interpolate(
     frame,
-    [config.durationInFrames * 0.9, config.durationInFrames],
+    [config.durationInFrames * 0.4, config.durationInFrames],
     [0, 1]
   );
+  console.log(translate);
   return (
     <div
-      className={`bg-gradient-to-b from-white to-blue-500 w-full flex ${
+      className={`flex w-full ${
         props.statsToTheLeft ? 'flex-row-reverse' : 'flex-row'
       } items-center justify-center`}
     >
@@ -50,7 +55,7 @@ export const PokemonPresentation = (props: PokemonPresentationProps) => {
       </div>
       <div
         className={`pt-8 text-center ${props.statsToTheLeft ? 'pr-8' : 'pl-8'}`}
-        style={{opacity}}
+        style={{ opacity }}
       >
         <p className="capitalize font-bold">{props.name}</p>
         <p>

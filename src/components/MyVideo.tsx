@@ -21,13 +21,13 @@ export const MyVideo = (props: PlayerComponentProps) => {
   };
 
   return (
-    <>
+    <AbsoluteFill className="bg-gradient-to-b from-white to-blue-500 w-full">
       <Audio src={audio} volume={0.5} startFrom={100} />
       <Series>
         <Series.Sequence durationInFrames={120}>
           <PokemonIntro />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={90}>
+        <Series.Sequence durationInFrames={180}>
           <PokemonPresentation
             url={props.pokemon1Url}
             name={props.pokemon1Name}
@@ -44,56 +44,7 @@ export const MyVideo = (props: PlayerComponentProps) => {
             id={props.pokemon2Id}
           />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={90}>
-          {pokemon1Skills.speed >= pokemon2Skills.speed ? (
-            <AbsoluteFill className="bg-gradient-to-b from-white to-blue-500 w-full flex items-center justify-center">
-              <p className="capitalize -translate-y-10">
-                {props.pokemon1Name} starts because it is the fastest Pokémon!
-              </p>
-              <div className="w-full flex flex-row -translate-y-3">
-                <PokemonFight
-                  name={props.pokemon1Name}
-                  skills={pokemon1Skills}
-                  stats={props.pokemon1Stats}
-                  id={props.pokemon1Id}
-                  statsToTheLeft
-                  url={props.pokemon1Url}
-                />
-                <PokemonFight
-                  name={props.pokemon2Name}
-                  skills={pokemon2Skills}
-                  stats={props.pokemon2Stats}
-                  id={props.pokemon2Id}
-                  url={props.pokemon2Url}
-                />
-              </div>
-            </AbsoluteFill>
-          ) : (
-            <AbsoluteFill className="bg-gradient-to-b from-white to-blue-500 w-full flex items-center justify-center">
-              <p className="capitalize -translate-y-10">
-                {props.pokemon2Name} starts because it is the fastest Pokémon!
-              </p>
-              <div className="w-full flex flex-row -translate-y-3">
-                <PokemonFight
-                  name={props.pokemon1Name}
-                  skills={pokemon1Skills}
-                  stats={props.pokemon1Stats}
-                  id={props.pokemon1Id}
-                  statsToTheLeft
-                  url={props.pokemon1Url}
-                />
-                <PokemonFight
-                  name={props.pokemon2Name}
-                  skills={pokemon2Skills}
-                  stats={props.pokemon2Stats}
-                  id={props.pokemon2Id}
-                  url={props.pokemon2Url}
-                />
-              </div>
-            </AbsoluteFill>
-          )}
-        </Series.Sequence>
       </Series>
-    </>
+    </AbsoluteFill>
   );
 };
