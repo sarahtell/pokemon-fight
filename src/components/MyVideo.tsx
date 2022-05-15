@@ -1,9 +1,10 @@
-import { AbsoluteFill, Series, Audio } from 'remotion';
+import { AbsoluteFill, Series, Audio, Sequence } from 'remotion';
 import { PlayerComponentProps } from './PlayerComponent';
 import { PokemonFight } from './PokemonFight';
 import { PokemonIntro } from './PokemonIntro';
 import { PokemonPresentation, Skills } from './PokemonPresentation';
 import audio from './music/pokemon.mp3';
+import { Layout } from './Layout';
 
 export const MyVideo = (props: PlayerComponentProps) => {
   const pokemon1Skills: Skills = {
@@ -21,30 +22,34 @@ export const MyVideo = (props: PlayerComponentProps) => {
   };
 
   return (
-    <AbsoluteFill className="bg-gradient-to-b from-white to-blue-500 w-full">
-      <Audio src={audio} volume={0.5} startFrom={100} />
-      <Series>
-        <Series.Sequence durationInFrames={120}>
-          <PokemonIntro />
-        </Series.Sequence>
-        <Series.Sequence durationInFrames={180}>
-          <PokemonPresentation
-            url={props.pokemon1Url}
-            name={props.pokemon1Name}
-            skills={pokemon1Skills}
-            stats={props.pokemon1Stats}
-            id={props.pokemon1Id}
-            statsToTheLeft
-          />
-          <PokemonPresentation
-            url={props.pokemon2Url}
-            name={props.pokemon2Name}
-            skills={pokemon2Skills}
-            stats={props.pokemon2Stats}
-            id={props.pokemon2Id}
-          />
-        </Series.Sequence>
-      </Series>
-    </AbsoluteFill>
+      <>
+        <Audio src={audio} volume={0.5} startFrom={100} />
+        <Series>
+          <Series.Sequence durationInFrames={120}>
+            <PokemonIntro />
+          </Series.Sequence>
+          <Series.Sequence durationInFrames={1800}>
+            <Layout header="Hej" headerFrom={0} headerDurationInFrames={100}>
+              <div className="flex">
+                <PokemonPresentation
+                  url={props.pokemon1Url}
+                  name={props.pokemon1Name}
+                  skills={pokemon1Skills}
+                  stats={props.pokemon1Stats}
+                  id={props.pokemon1Id}
+                  statsToTheLeft
+                />
+                <PokemonPresentation
+                  url={props.pokemon2Url}
+                  name={props.pokemon2Name}
+                  skills={pokemon2Skills}
+                  stats={props.pokemon2Stats}
+                  id={props.pokemon2Id}
+                />
+              </div>
+            </Layout>
+          </Series.Sequence>
+        </Series>
+      </>
   );
 };

@@ -23,18 +23,17 @@ export const PokemonPresentation = (props: PokemonPresentationProps) => {
   const translate = interpolate(
     frame,
     [
-      config.durationInFrames * 0.0,
-      config.durationInFrames * 0.3,
+      0,
+      50,
       config.durationInFrames,
     ],
     [0, 1, 1]
   );
   const opacity = interpolate(
     frame,
-    [config.durationInFrames * 0.4, config.durationInFrames],
+    [50, 100],
     [0, 1]
   );
-  console.log(translate);
   return (
     <div
       className={`flex w-full ${
