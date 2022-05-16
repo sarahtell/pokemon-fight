@@ -5,6 +5,7 @@ import { PokemonIntro } from './PokemonIntro';
 import { PokemonPresentation, Skills } from './PokemonPresentation';
 import audio from './music/pokemon.mp3';
 import { Layout } from './Layout';
+import { Header } from './Header';
 
 export const MyVideo = (props: PlayerComponentProps) => {
   const pokemon1Skills: Skills = {
@@ -22,34 +23,33 @@ export const MyVideo = (props: PlayerComponentProps) => {
   };
 
   return (
-      <>
-        <Audio src={audio} volume={0.5} startFrom={100} />
+    <>
+      <Audio src={audio} volume={0.5} startFrom={100} />
+      <Layout>
+        <Header />
         <Series>
           <Series.Sequence durationInFrames={120}>
             <PokemonIntro />
           </Series.Sequence>
           <Series.Sequence durationInFrames={1800}>
-            <Layout header="Hej" headerFrom={0} headerDurationInFrames={100}>
-              <div className="flex">
-                <PokemonPresentation
-                  url={props.pokemon1Url}
-                  name={props.pokemon1Name}
-                  skills={pokemon1Skills}
-                  stats={props.pokemon1Stats}
-                  id={props.pokemon1Id}
-                  statsToTheLeft
-                />
-                <PokemonPresentation
-                  url={props.pokemon2Url}
-                  name={props.pokemon2Name}
-                  skills={pokemon2Skills}
-                  stats={props.pokemon2Stats}
-                  id={props.pokemon2Id}
-                />
-              </div>
-            </Layout>
+            <PokemonPresentation
+              url={props.pokemon1Url}
+              name={props.pokemon1Name}
+              skills={pokemon1Skills}
+              stats={props.pokemon1Stats}
+              id={props.pokemon1Id}
+              statsToTheLeft
+            />
+            <PokemonPresentation
+              url={props.pokemon2Url}
+              name={props.pokemon2Name}
+              skills={pokemon2Skills}
+              stats={props.pokemon2Stats}
+              id={props.pokemon2Id}
+            />
           </Series.Sequence>
         </Series>
-      </>
+      </Layout>
+    </>
   );
 };

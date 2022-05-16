@@ -1,22 +1,17 @@
-import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import { Series } from 'remotion';
+import { Title } from './Title';
 
-type Props = {
-	header: string;
-	from: number;
-	durationInFrames: number;
-}
+type Props = {};
 
 export const Header = (props: Props) => {
-	const frame = useCurrentFrame();
-
-
-	const opacity = interpolate(
-		frame,
-		[props.from, props.from + props.durationInFrames, props.from + props.durationInFrames + 10],
-		[1, 1, 0]
-	);
-
-	return (
-		<h1 className='font-sans my-10 text-3xl' style={{ opacity }}>{props.header}</h1>
-	)
-}
+  return (
+    <Series>
+      <Series.Sequence durationInFrames={120}>
+        <Title title="Welcome" />
+      </Series.Sequence>
+      <Series.Sequence durationInFrames={120}>
+        <Title title="Welcome2" />
+      </Series.Sequence>
+    </Series>
+  );
+};
