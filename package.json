@@ -27,9 +27,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "video": "remotion preview src/remotion/index.tsx"
+    "video": "remotion preview src/remotion/index.tsx",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -52,7 +52,9 @@
   "devDependencies": {
     "@types/lodash": "^4.14.182",
     "autoprefixer": "^10.4.7",
+    "jest": "^28.1.0",
     "postcss": "^8.4.13",
-    "tailwindcss": "2"
+    "tailwindcss": "2",
+    "ts-jest": "^28.0.2"
   }
 }
