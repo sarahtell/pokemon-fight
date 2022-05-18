@@ -1,22 +1,33 @@
-import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import { Series } from 'remotion';
+import { Skills } from './PokemonPresentation';
+import { Title } from './Title';
+import { capitalize } from 'lodash';
 
 type Props = {
-	header: string;
-	from: number;
-	durationInFrames: number;
-}
+  pokemon1Skills: Skills;
+  pokemon2Skills: Skills;
+  pokemon1Name: string;
+  pokemon2Name: string;
+};
 
 export const Header = (props: Props) => {
-	const frame = useCurrentFrame();
-
-
-	const opacity = interpolate(
-		frame,
-		[props.from, props.from + props.durationInFrames, props.from + props.durationInFrames + 10],
-		[1, 1, 0]
-	);
-
-	return (
-		<h1 className='font-sans my-10 text-3xl' style={{ opacity }}>{props.header}</h1>
-	)
-}
+  function getFastestPokemon() {
+    if (props.pokemon1Skills.speed >= props.pokemon2Skills.speed) {
+      return capitalize(props.pokemon1Name);
+    } else {
+      return capitalize(props.pokemon2Name);
+    }
+  }
+  return (
+    <Series>
+      <Series.Sequence offset={120} durationInFrames={120} name="pokemons">
+        <Title title="Battle between:" />
+      </Series.Sequence>
+      <Series.Sequence durationInFrames={120}>
+        <Title
+          title={`${getFastestPokemon()} starts because it's the fastest Pokémon!`}
+        />
+      </Series.Sequence>
+    </Series>
+  );
+};

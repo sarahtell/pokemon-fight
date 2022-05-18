@@ -70,7 +70,7 @@
 			}
 		},
 		{
-			"base_stat": 90,
+			"base_stat": 10,
 			"effort": 0,
 			"stat": {
 				"name": "attack",
