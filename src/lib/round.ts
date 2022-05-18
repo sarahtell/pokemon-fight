@@ -1,8 +1,8 @@
 import { Skills } from "../components/PokemonPresentation";
 
 export type Round = {
-    pokemon1Skills: Skills
-    pokemon2Skills: Skills
+    pokemon1Skills: Skills;
+    pokemon2Skills: Skills;
     attacker: string;
 }
 

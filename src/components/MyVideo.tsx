@@ -1,11 +1,11 @@
 import { AbsoluteFill, Series, Audio, Sequence } from 'remotion';
 import { PlayerComponentProps } from './PlayerComponent';
-import { PokemonFight } from './PokemonFight';
 import { PokemonIntro } from './PokemonIntro';
 import { PokemonPresentation, Skills } from './PokemonPresentation';
 import audio from './music/pokemon.mp3';
 import { Layout } from './Layout';
 import { Header } from './Header';
+import { getRounds } from '../lib/round';
 
 export const MyVideo = (props: PlayerComponentProps) => {
   const pokemon1Skills: Skills = {
