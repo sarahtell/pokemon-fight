@@ -1,3 +1,4 @@
+import { round } from "lodash";
 import { Skills } from "../components/PokemonPresentation";
 
 export type Round = {
@@ -61,10 +62,11 @@ export function getRounds(
                 },
             });
         }
-        if (rounds.length > 5) {
-            return rounds;
-        }
     }
-
+    if (rounds[rounds.length - 1]?.pokemon1Skills.hp < 0) {
+        rounds[rounds.length - 1].pokemon1Skills.hp = 0
+    } else if (rounds[rounds.length - 1]?.pokemon2Skills.hp < 0) {
+        rounds[rounds.length - 1].pokemon2Skills.hp = 0
+    }
     return rounds;
 }

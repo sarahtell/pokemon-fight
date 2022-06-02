@@ -7,7 +7,7 @@ export const PokemonVideo = () => {
     <>
       <Composition
         component={MyVideo}
-        durationInFrames={1000}
+        durationInFrames={1300}
         width={1080}
         height={600}
         fps={30}
