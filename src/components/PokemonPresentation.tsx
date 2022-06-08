@@ -37,7 +37,7 @@ export const PokemonPresentation = (props: PokemonPresentationProps) => {
       <div
         className={`flex w-full items-center justify-center`}
       >
-        <SkillsTable name={props.name1} skills={props.skills1} />
+        <SkillsTable name={props.name1} skills={props.skills1} shouldUseOpacity/>
         <div
           className="flex w-1/2"
           style={{
@@ -60,7 +60,7 @@ export const PokemonPresentation = (props: PokemonPresentationProps) => {
         >
           <PokemonSvg url={props.url2} />
         </div>
-        <SkillsTable name={props.name2} skills={props.skills2} />
+        <SkillsTable name={props.name2} skills={props.skills2} shouldUseOpacity/>
       </div>
     </React.Fragment>
   );

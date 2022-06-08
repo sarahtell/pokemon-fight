@@ -1,27 +1,39 @@
-import { interpolate, useCurrentFrame } from "remotion";
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { Skills } from "./PokemonPresentation"
 
 type SkillsTableProps = {
     name: string,
-    skills: Skills
+    skills: Skills,
+    shouldUseOpacity?: boolean
+    shouldUseSpring?: boolean
 }
 
 
 export function SkillsTable(props: SkillsTableProps): JSX.Element {
     const frame = useCurrentFrame()
+    const config = useVideoConfig();
     const opacity = interpolate(
         frame,
         [50, 100],
         [0, 1]
     );
+    const value = spring({
+        frame,
+        from: 0,
+        to: 1,
+        fps: config.fps,
+        config: {
+            stiffness: 100,
+        },
+    });
     return (
 
         <div
             className={`pt-8 text-center mx-8`}
-            style={{ opacity }}
+            style={{ ...(props.shouldUseOpacity && {opacity}) }}
         >
             <p className="capitalize font-bold">{props.name}</p>
-            <p>
+            <p style={{ ...(props.shouldUseSpring && {transform: `scale(${value})`}) }}>
                 {'HP'}: {props.skills.hp}
             </p>
             <p>
@@ -33,7 +45,7 @@ export function SkillsTable(props: SkillsTableProps): JSX.Element {
             <p>
                 {'Speed'}: {props.skills.speed}
             </p>
-        </div>
+        </div >
     )
 
 }
