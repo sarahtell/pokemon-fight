@@ -1,20 +1,22 @@
+import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { PokemonStats } from '../App';
 import { PokemonSvg } from './PokemonSvg';
+import { SkillsTable } from './SkillsTable';
 
 export type Skills = {
   [K in 'speed' | 'hp' | 'attack' | 'defense']: number;
 };
 
 export type PokemonPresentationProps = {
-  name: string;
-  stats: PokemonStats;
-  skills: Skills;
-  statsToTheLeft?: boolean;
-  willStartFight?: boolean;
-  diffOpponentAttackSelfDefense?: number;
-  id: number;
-  url: string;
+  name1: string;
+  skills1: Skills;
+  id1: number;
+  url1: string;
+  name2: string;
+  skills2: Skills;
+  id2: number;
+  url2: string;
 };
 
 export const PokemonPresentation = (props: PokemonPresentationProps) => {
@@ -29,47 +31,37 @@ export const PokemonPresentation = (props: PokemonPresentationProps) => {
     ],
     [0, 1, 1]
   );
-  const opacity = interpolate(
-    frame,
-    [50, 100],
-    [0, 1]
-  );
+
   return (
-    <div
-      className={`flex w-full ${
-        props.statsToTheLeft ? 'flex-row-reverse' : 'flex-row'
-      } items-center justify-center`}
-    >
+    <React.Fragment>
       <div
-        className="flex w-1/2"
-        style={{
-          transform: `translateX(${
-            props.statsToTheLeft
-              ? -config.width / 2 + (config.width / 2) * translate
-              : config.width / 2 - (config.width / 2) * translate
-          }px)`,
-        }}
+        className={`flex w-full items-center justify-center`}
       >
-        <PokemonSvg url={props.url} />
+        <SkillsTable name={props.name1} skills={props.skills1} />
+        <div
+          className="flex w-1/2"
+          style={{
+            transform: `translateX(${-config.width / 2 + (config.width / 2) * translate
+              }px)`,
+          }}
+        >
+          <PokemonSvg url={props.url1} />
+        </div>
       </div>
       <div
-        className={`pt-8 text-center ${props.statsToTheLeft ? 'pr-8' : 'pl-8'}`}
-        style={{ opacity }}
+        className={`flex w-full items-center justify-center`}
       >
-        <p className="capitalize font-bold">{props.name}</p>
-        <p>
-          {'HP'}: {props.skills.hp}
-        </p>
-        <p>
-          {'Attack'}: {props.skills.attack}
-        </p>
-        <p>
-          {'Defense'}: {props.skills.defense}
-        </p>
-        <p>
-          {'Speed'}: {props.skills.speed}
-        </p>
+        <div
+          className="flex w-1/2"
+          style={{
+            transform: `translateX(${config.width / 2 - (config.width / 2) * translate
+              }px)`,
+          }}
+        >
+          <PokemonSvg url={props.url2} />
+        </div>
+        <SkillsTable name={props.name2} skills={props.skills2} />
       </div>
-    </div>
+    </React.Fragment>
   );
 };

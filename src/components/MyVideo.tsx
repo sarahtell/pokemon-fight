@@ -39,19 +39,14 @@ export const MyVideo = (props: PlayerComponentProps) => {
           </Series.Sequence>
           <Series.Sequence durationInFrames={240}>
             <PokemonPresentation
-              url={props.pokemon1Url}
-              name={props.pokemon1Name}
-              skills={pokemon1Skills}
-              stats={props.pokemon1Stats}
-              id={props.pokemon1Id}
-              statsToTheLeft
-            />
-            <PokemonPresentation
-              url={props.pokemon2Url}
-              name={props.pokemon2Name}
-              skills={pokemon2Skills}
-              stats={props.pokemon2Stats}
-              id={props.pokemon2Id}
+              url1={props.pokemon1Url}
+              url2={props.pokemon2Url}
+              name1={props.pokemon1Name}
+              name2={props.pokemon2Name}
+              skills1={pokemon1Skills}
+              skills2={pokemon2Skills}
+              id1={props.pokemon1Id}
+              id2={props.pokemon1Id}
             />
           </Series.Sequence>
           {getRounds(pokemon1Skills, pokemon2Skills, props.pokemon1Name, props.pokemon2Name
