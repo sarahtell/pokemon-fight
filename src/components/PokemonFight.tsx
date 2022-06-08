@@ -1,4 +1,4 @@
-import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { PokemonStats } from '../App';
 import { PokemonSvg } from './PokemonSvg';
 
@@ -20,6 +20,15 @@ export type PokemonFightProps = {
 export const PokemonFight = (props: PokemonFightProps) => {
   const frame = useCurrentFrame();
   const config = useVideoConfig();
+  const value = spring({
+    frame,
+    from: 0,
+    to: 1,
+    fps: config.fps,
+    config: {
+      stiffness: 100,
+    },
+  });
   return (
     <div
       className={`flex w-full ${
@@ -35,7 +44,7 @@ export const PokemonFight = (props: PokemonFightProps) => {
         className={`pt-8 text-center ${props.statsToTheLeft ? 'pr-8' : 'pl-8'}`}
       >
         <p className="capitalize font-bold">{props.name}</p>
-        <p>
+        <p style={{transform: `scale(${value})`}} >
           {'HP'}: {props.skills.hp}
         </p>
         <p>
