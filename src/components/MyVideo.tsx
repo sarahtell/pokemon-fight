@@ -58,10 +58,11 @@ export const MyVideo = (props: PlayerComponentProps) => {
                   url2={props.pokemon2Url}
                   name1={props.pokemon1Name}
                   name2={props.pokemon2Name}
-                  skills1={pokemon1Skills}
-                  skills2={pokemon2Skills}
+                  skills1={round.pokemon1Skills}
+                  skills2={round.pokemon2Skills}
                   id1={props.pokemon1Id}
                   id2={props.pokemon1Id}
+                  attacker={round.attacker}
                 />
               </Series.Sequence>)
           })
