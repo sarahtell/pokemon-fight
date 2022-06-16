@@ -14,7 +14,7 @@ const Logo = React.forwardRef<SVGElement, LogoProps>((props, ref) => {
   const scale = 100;
 
   const translate = props.shouldUseAttackAnimation
-    ? interpolate(frame, [0, 50, config.durationInFrames], [0, 1, 1])
+    ? interpolate(frame, [0, config.durationInFrames * 0.5, config.durationInFrames], [0, 1, 1])
     : 0;
   return (
     <SVG

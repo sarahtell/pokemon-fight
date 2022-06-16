@@ -7,6 +7,7 @@ import { Layout } from './Layout';
 import { Header } from './Header';
 import { getRounds } from '../lib/round';
 import { PokemonFight } from './PokemonFight';
+import React from 'react';
 
 export const MyVideo = (props: PlayerComponentProps) => {
   const pokemon1Skills: Skills = {

@@ -47,4 +47,12 @@ describe("tests rounds", () => {
         expect(rounds[rounds.length - 1].pokemon2Skills.hp).toBe(0)
     })
 
+    it("returns the initial hp for each round", () => {
+        const pokemon1Skills: Skills = { attack: 3, defense: 10, hp: 10, speed: 50 }
+        const pokemon2Skills: Skills = { attack: 5, defense: 20, hp: 20, speed: 10 }
+        const rounds = getRounds(pokemon1Skills, pokemon2Skills, pokemon1Name, pokemon2Name)
+        expect(rounds[0].pokemon2Skills.initialHp).toBe(20)
+        expect(rounds[0].pokemon2Skills.hp).toBe(17)
+    })
+
 })

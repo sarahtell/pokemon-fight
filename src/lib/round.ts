@@ -1,9 +1,11 @@
 import { round } from "lodash";
 import { Skills } from "../components/PokemonPresentation";
 
+export type RoundStats = Skills & {initialHp: number};
+
 export type Round = {
-    pokemon1Skills: Skills;
-    pokemon2Skills: Skills;
+    pokemon1Skills: RoundStats;
+    pokemon2Skills: RoundStats;
     attacker: string;
 }
 
@@ -18,10 +20,14 @@ export function getRounds(
     if (pokemon1Skills?.speed >= pokemon2Skills?.speed) {
         rounds.push({
             attacker: pokemon1Name,
-            pokemon1Skills: pokemon1Skills,
+            pokemon1Skills: {
+                ...pokemon1Skills,
+                initialHp: pokemon1Skills?.hp
+            },
             pokemon2Skills: {
                 ...pokemon2Skills,
                 hp: pokemon2Skills?.hp - pokemon1Skills?.attack,
+                initialHp: pokemon2Skills?.hp
             },
         });
     } else {
@@ -30,8 +36,12 @@ export function getRounds(
             pokemon1Skills: {
                 ...pokemon1Skills,
                 hp: pokemon1Skills?.hp - pokemon2Skills?.attack,
+                initialHp: pokemon1Skills?.hp
             },
-            pokemon2Skills: pokemon2Skills,
+            pokemon2Skills: {
+                ...pokemon2Skills,
+                initialHp: pokemon2Skills?.hp
+            },
         });
     }
 
@@ -49,16 +59,24 @@ export function getRounds(
                 pokemon1Skills: {
                     ...latestRound.pokemon1Skills,
                     hp: latestRound.pokemon1Skills.hp - latestRound.pokemon2Skills.attack,
+                    initialHp: latestRound.pokemon1Skills?.hp
                 },
-                pokemon2Skills: latestRound.pokemon2Skills,
+                pokemon2Skills: {
+                    ...latestRound.pokemon2Skills,
+                    initialHp: latestRound.pokemon2Skills?.hp
+            },
             });
         } else {
             rounds.push({
                 attacker: pokemon1Name,
-                pokemon1Skills: latestRound.pokemon1Skills,
+                pokemon1Skills: {
+                    ...latestRound.pokemon1Skills,
+                    initialHp: latestRound.pokemon1Skills?.hp
+            },
                 pokemon2Skills: {
                     ...latestRound.pokemon2Skills,
                     hp: latestRound.pokemon2Skills.hp - latestRound.pokemon1Skills.attack,
+                    initialHp: latestRound.pokemon2Skills?.hp
                 },
             });
         }

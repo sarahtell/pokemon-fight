@@ -6,6 +6,7 @@ type SkillsTableProps = {
   skills: Skills;
   shouldUseOpacity?: boolean;
   shouldUseSpring?: boolean;
+  initialHp?: number;
 };
 
 export function SkillsTable(props: SkillsTableProps): JSX.Element {
@@ -24,8 +25,8 @@ export function SkillsTable(props: SkillsTableProps): JSX.Element {
 
   const value = interpolate(
     frame,
-    [0, config.durationInFrames * 0.7, config.durationInFrames],
-    [1, 1, 1.5]
+    [0, config.durationInFrames],
+    [1, 1.5]
   );
 
   return (
@@ -39,7 +40,7 @@ export function SkillsTable(props: SkillsTableProps): JSX.Element {
           ...(props.shouldUseSpring && { transform: `scale(${value})` }),
         }}
       >
-        {'HP'}: {props.skills.hp}
+        {'HP'}: {props.initialHp ? props.initialHp : props.skills.hp}
       </p>
       <p>
         {'Attack'}: {props.skills.attack}
