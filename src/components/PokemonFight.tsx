@@ -25,10 +25,11 @@ export const PokemonFight = (props: PokemonFightProps) => {
     <Series>
       <Series.Sequence durationInFrames={50}>
         <div className={`flex w-full items-center justify-center`}>
+          {/* If pokemon one is attacked */}
           <SkillsTable
             name={props.name1}
             skills={props.skills1}
-            initialHp={(props.attacker === props.name2) ? props.skills1.initialHp : undefined}
+            initialHp={props.skills1.initialHp}
           />
           <div className="flex w-1/2">
             <PokemonSvg
@@ -45,19 +46,22 @@ export const PokemonFight = (props: PokemonFightProps) => {
               attackLeft
             />
           </div>
+          {/* If pokemon two is attacked */}
           <SkillsTable
             name={props.name2}
             skills={props.skills2}
-            initialHp={(props.attacker === props.name1) ? props.skills2.initialHp : undefined}
+            initialHp={props.skills2.initialHp}
           />
         </div>
       </Series.Sequence>
       <Series.Sequence durationInFrames={50}>
         <div className={`flex w-full items-center justify-center`}>
+          {/* If pokemon one was attacked */}
           <SkillsTable
             name={props.name1}
             skills={props.skills1}
-            shouldUseSpring={props.attacker === props.name2}
+            shouldUseDecreaseAnimation={props.attacker === props.name2}
+            initialHp={props.skills1.initialHp}
           />
           <div className="flex w-1/2">
             <PokemonSvg
@@ -72,10 +76,12 @@ export const PokemonFight = (props: PokemonFightProps) => {
               attackLeft
             />
           </div>
+          {/* If pokemon two was attacked */}
           <SkillsTable
             name={props.name2}
             skills={props.skills2}
-            shouldUseSpring={props.attacker === props.name1}
+            shouldUseDecreaseAnimation={props.attacker === props.name1}
+            initialHp={props.skills2.initialHp}
           />
         </div>
       </Series.Sequence>
