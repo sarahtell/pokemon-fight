@@ -1,4 +1,5 @@
 import { round } from "lodash";
+import { number } from "yargs";
 import { Skills } from "../components/PokemonPresentation";
 
 export type RoundStats = Skills & {initialHp: number};
@@ -17,6 +18,10 @@ export function getRounds(
 ): Round[] {
     let rounds = [];
 
+    function calculateFormulaHp(attack: number, defense: number, hp: number): number {
+        return Math.floor(hp - (attack / defense) * 50)
+    }
+
     if (pokemon1Skills?.speed >= pokemon2Skills?.speed) {
         rounds.push({
             attacker: pokemon1Name,
@@ -26,7 +31,7 @@ export function getRounds(
             },
             pokemon2Skills: {
                 ...pokemon2Skills,
-                hp: pokemon2Skills?.hp - pokemon1Skills?.attack,
+                hp: calculateFormulaHp(pokemon1Skills?.attack, pokemon2Skills?.defense, pokemon2Skills?.hp),
                 initialHp: pokemon2Skills?.hp
             },
         });
@@ -35,7 +40,7 @@ export function getRounds(
             attacker: pokemon2Name,
             pokemon1Skills: {
                 ...pokemon1Skills,
-                hp: pokemon1Skills?.hp - pokemon2Skills?.attack,
+                hp: calculateFormulaHp(pokemon2Skills?.attack, pokemon1Skills?.defense, pokemon1Skills?.hp),
                 initialHp: pokemon1Skills?.hp
             },
             pokemon2Skills: {
@@ -47,7 +52,7 @@ export function getRounds(
 
     let latestRound
 
-    while (
+    while ( 
         rounds[rounds.length - 1]?.pokemon1Skills.hp > 0 &&
         rounds[rounds.length - 1]?.pokemon2Skills.hp > 0
     ) {
@@ -58,7 +63,7 @@ export function getRounds(
 
                 pokemon1Skills: {
                     ...latestRound.pokemon1Skills,
-                    hp: latestRound.pokemon1Skills.hp - latestRound.pokemon2Skills.attack,
+                    hp: calculateFormulaHp(latestRound.pokemon2Skills.attack, latestRound.pokemon1Skills.defense, latestRound.pokemon1Skills.hp),
                     initialHp: latestRound.pokemon1Skills?.hp
                 },
                 pokemon2Skills: {
@@ -75,7 +80,7 @@ export function getRounds(
             },
                 pokemon2Skills: {
                     ...latestRound.pokemon2Skills,
-                    hp: latestRound.pokemon2Skills.hp - latestRound.pokemon1Skills.attack,
+                    hp: calculateFormulaHp(latestRound.pokemon1Skills.attack, latestRound.pokemon2Skills.defense, latestRound.pokemon2Skills.hp),
                     initialHp: latestRound.pokemon2Skills?.hp
                 },
             });

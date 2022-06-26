@@ -7,6 +7,7 @@ import { Layout } from './Layout';
 import { Header } from './Header';
 import { getRounds } from '../lib/round';
 import { PokemonFight } from './PokemonFight';
+import { PokemonWinner } from './PokemonWinner';
 import React from 'react';
 
 export const MyVideo = (props: PlayerComponentProps) => {
@@ -68,6 +69,14 @@ export const MyVideo = (props: PlayerComponentProps) => {
               </Series.Sequence>)
           })
           }
+          <Series.Sequence durationInFrames={50}>
+            <PokemonWinner
+              pokemon1Skills={pokemon1Skills}
+              pokemon2Skills={pokemon2Skills}
+              url1={props.pokemon1Url}
+              url2={props.pokemon2Url}
+            />
+          </Series.Sequence>
         </Series>
       </Layout>
     </>
