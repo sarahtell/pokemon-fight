@@ -25,6 +25,11 @@ export const MyVideo = (props: PlayerComponentProps) => {
     speed: props.pokemon2Stats[5].base_stat || 0,
   };
 
+  const rounds = getRounds(pokemon1Skills, pokemon2Skills, props.pokemon1Name, props.pokemon2Name
+    )
+
+  const lastRound = rounds[rounds.length-1]
+
   return (
     <>
       <Audio src={audio} volume={0.5} startFrom={100} />
@@ -51,8 +56,7 @@ export const MyVideo = (props: PlayerComponentProps) => {
               id2={props.pokemon1Id}
             />
           </Series.Sequence>
-          {getRounds(pokemon1Skills, pokemon2Skills, props.pokemon1Name, props.pokemon2Name
-          ).map(round => {
+          {rounds.map(round => {
             return (
               <Series.Sequence durationInFrames={100}>
                 <PokemonFight
@@ -71,10 +75,12 @@ export const MyVideo = (props: PlayerComponentProps) => {
           }
           <Series.Sequence durationInFrames={50}>
             <PokemonWinner
-              pokemon1Skills={pokemon1Skills}
-              pokemon2Skills={pokemon2Skills}
+              pokemon1Skills={lastRound.pokemon1Skills}
+              pokemon2Skills={lastRound.pokemon2Skills}
               url1={props.pokemon1Url}
               url2={props.pokemon2Url}
+              name1={props.pokemon1Name}
+              name2={props.pokemon2Name}
             />
           </Series.Sequence>
         </Series>
