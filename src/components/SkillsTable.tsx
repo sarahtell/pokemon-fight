@@ -1,4 +1,4 @@
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Skills } from './PokemonPresentation';
 
 const ANIMATION_DECREASE_HP = 0.8

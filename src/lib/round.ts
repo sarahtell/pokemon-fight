@@ -1,5 +1,3 @@
-import { round } from "lodash";
-import { number } from "yargs";
 import { Skills } from "../components/PokemonPresentation";
 
 export type RoundStats = Skills & {initialHp: number};

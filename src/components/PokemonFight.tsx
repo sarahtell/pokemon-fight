@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sequence, Series, useCurrentFrame } from 'remotion';
+import { Series } from 'remotion';
 import { RoundStats } from '../lib/round';
 import { PokemonSvg } from './PokemonSvg';
 import { SkillsTable } from './SkillsTable';
@@ -66,6 +66,7 @@ export const PokemonFight = (props: PokemonFightProps) => {
           <div className="flex w-1/2">
             <PokemonSvg
               url={props.url1}
+              shouldUseInjuryAnimation={props.attacker === props.name2}
             />
           </div>
         </div>
@@ -74,6 +75,7 @@ export const PokemonFight = (props: PokemonFightProps) => {
             <PokemonSvg
               url={props.url2}
               attackLeft
+              shouldUseInjuryAnimation={props.attacker === props.name1}
             />
           </div>
           {/* If pokemon two was attacked */}
