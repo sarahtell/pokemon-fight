@@ -20,11 +20,11 @@ export function PlayerComponent(props: PlayerComponentProps): any {
     <Player
       component={MyVideo}
       inputProps={props}
-      durationInFrames={300}
+      durationInFrames={1300}
       compositionWidth={1080}
       compositionHeight={600}
       fps={30}
-      // autoPlay
+      autoPlay
       controls
     />
   );
