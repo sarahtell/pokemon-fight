@@ -1,7 +1,7 @@
 import { Series } from 'remotion';
-import { Skills } from './PokemonPresentation';
 import { Title } from './Title';
 import { capitalize } from 'lodash';
+import { Skills } from '../App';
 
 type Props = {
   pokemon1Skills: Skills;

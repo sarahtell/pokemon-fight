@@ -1,4 +1,4 @@
-import { Skills } from "../components/PokemonPresentation"
+import { Skills } from "../App"
 import { getRounds } from "../lib/round"
 
 const pokemon1Name: string = 'Boris'

@@ -1,12 +1,9 @@
 import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
-import { PokemonStats } from '../App';
+import { PokemonStats, Skills } from '../App';
 import { PokemonSvg } from './PokemonSvg';
 import { SkillsTable } from './SkillsTable';
 
-export type Skills = {
-  [K in 'speed' | 'hp' | 'attack' | 'defense']: number;
-};
 
 export type PokemonPresentationProps = {
   name1: string;

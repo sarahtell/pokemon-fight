@@ -6,6 +6,11 @@ import { PlayerComponent } from './components/PlayerComponent';
 
 const baseUrl = 'https://pokeapi.co/api/v2';
 
+export type Skills = {
+  [K in 'speed' | 'hp' | 'attack' | 'defense']: number;
+};
+
+
 type PokemonStat = {
   base_stat: number;
   effort: number;
@@ -18,7 +23,7 @@ type PokemonStat = {
 export type PokemonStats = PokemonStat[];
 
 type PokemonData = {
-  stats: PokemonStats;
+  skills: Skills;
   id: number;
   url: string;
 };
@@ -34,7 +39,7 @@ function App() {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    const allPokemons = getAllPokemons();
+    getAllPokemons();
   }, []);
 
   async function getAllPokemons() {
@@ -106,8 +111,16 @@ function App() {
     axios
       .get(`${baseUrl}/pokemon/${pokemon1}`)
       .then(res => {
+
+        const pokemon1Skills: Skills = {
+          hp: res.data.stats[0].base_stat || 0,
+          attack: res.data.stats[1].base_stat || 0,
+          defense: res.data.stats[2].base_stat || 0,
+          speed: res.data.stats[5].base_stat || 0,
+        };
+      
         setPokemon1Data({
-          stats: res.data.stats,
+          skills: pokemon1Skills,
           id: res.data.id,
           url: res.data.sprites.other.dream_world.front_default,
         });
@@ -119,8 +132,15 @@ function App() {
     axios
       .get(`${baseUrl}/pokemon/${pokemon2}`)
       .then(res => {
+        const pokemon2Skills: Skills = {
+          hp: res.data.stats[0].base_stat || 0,
+          attack: res.data.stats[1].base_stat || 0,
+          defense: res.data.stats[2].base_stat || 0,
+          speed: res.data.stats[5].base_stat || 0,
+        };
+      
         setPokemon2Data({
-          stats: res.data.stats,
+          skills: pokemon2Skills,
           id: res.data.id,
           url: res.data.sprites.other.dream_world.front_default,
         });
@@ -151,11 +171,11 @@ function App() {
           <PlayerComponent
             pokemon1Name={pokemon1 || ''}
             pokemon1Id={pokemon1Data?.id || 0}
-            pokemon1Stats={pokemon1Data?.stats || []}
+            pokemon1Skills={pokemon1Data?.skills}
             pokemon1Url={pokemon1Data?.url || ''}
             pokemon2Name={pokemon2 || ''}
             pokemon2Id={pokemon2Data?.id || 0}
-            pokemon2Stats={pokemon2Data?.stats || []}
+            pokemon2Skills={pokemon2Data?.skills}
             pokemon2Url={pokemon2Data?.url || ''}
             loading={loading}
             error={error}
