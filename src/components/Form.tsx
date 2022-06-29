@@ -1,15 +1,44 @@
-import * as React from 'react';
+import { capitalize } from 'lodash';
+import Select, { ActionMeta, SingleValue } from 'react-select';
 
 export interface FormProps {
   handleSubmit: (e: any) => void;
-  handleOnchange1: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOnchange2: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnchange1:
+    | ((
+        newValue: SingleValue<{
+          value: string;
+          label: string;
+        }>,
+        actionMeta: ActionMeta<{
+          value: string;
+          label: string;
+        }>
+      ) => void)
+    | undefined;
+  handleOnchange2:
+    | ((
+        newValue: SingleValue<{
+          value: string;
+          label: string;
+        }>,
+        actionMeta: ActionMeta<{
+          value: string;
+          label: string;
+        }>
+      ) => void)
+    | undefined;
   fightStarted: boolean;
   handleReset: (p: any) => void;
   error: string | undefined;
+  allPokemons: string[];
+  hasSelectedPokemons: boolean;
 }
 
 export default function Form(props: FormProps) {
+  const options = props.allPokemons.map(p => {
+    return { value: p, label: capitalize(p) };
+  });
+
   if (props.fightStarted) {
     return (
       <div className="flex flex-col space-y-5">
@@ -31,65 +60,28 @@ export default function Form(props: FormProps) {
   return (
     <form
       onSubmit={props.handleSubmit}
-      className="flex space-x-5 justify-center"
+      className="flex w-1/2 space-x-5 justify-center"
     >
-      <input
-        className="
-	  form-control
-	  block
-	  px-3
-	  py-1.5
-	  text-base
-	  font-normal
-	  text-gray-700
-	  bg-white
-	  bg-clip-padding
-	  border
-	  border-solid
-	  border-gray-300
-	  rounded
-	  transition
-	  ease-in-out
-	  m-0
-	  focus:text-gray-700
-	  focus:bg-white
-	  focus:border-blue-600 
-	  focus:outline-none"
+      <Select
+        options={options}
+        placeholder={'First Pokémon'}
         onChange={props.handleOnchange1}
-        type="text"
-        name="pokemon1"
-        placeholder="First Pokémon"
+        className="w-1/3"
       />
-      <input
-        className="
-	  form-control
-	  block
-	  px-3
-	  py-1.5
-	  text-base
-	  font-normal
-	 text-gray-700
-	 bg-white 
-	  bg-clip-padding
-	  border
-	  border-solid
-	 border-gray-300
-	  rounded
-	  transition
-	  ease-in-out
-	  m-0
-	 focus:text-gray-700
-	 focus:bg-white
-	 focus:border-blue-600 
-	 focus:outline-none"
+      <Select
+        options={options}
+        placeholder={'Second Pokémon'}
+        className="w-1/3"
         onChange={props.handleOnchange2}
-        type="text"
-        name="pokemon2"
-        placeholder="Second Pokémon"
       />
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className={
+          props.hasSelectedPokemons
+            ? 'bg-gray-500 text-white font-bold py-2 px-4 rounded cursor-not-allowed'
+            : 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+        }
+        disabled={props.hasSelectedPokemons}
       >
         FIGHT!
       </button>

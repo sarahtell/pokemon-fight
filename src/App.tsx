@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { ActionMeta, SingleValue } from 'react-select';
 import Form from './components/Form';
 import { PlayerComponent } from './components/PlayerComponent';
 
@@ -52,19 +53,38 @@ function App() {
       next = response.data.next;
 
       if (!next) {
-        break
+        break;
       }
     }
     setAllPokemons(allPokemons);
   }
 
-  function handleOnchange1(e: React.ChangeEvent<HTMLInputElement>) {
-    setPokemon1(e.target.value.toLowerCase());
+  function handleOnchange1(
+    newValue: SingleValue<{
+      value: string;
+      label: string;
+    }>,
+    actionMeta: ActionMeta<{
+      value: string;
+      label: string;
+    }>
+  ) {
+    setPokemon1(newValue?.value);
   }
 
-  function handleOnchange2(e: React.ChangeEvent<HTMLInputElement>) {
-    setPokemon2(e.target.value.toLowerCase());
+  function handleOnchange2(
+    newValue: SingleValue<{
+      value: string;
+      label: string;
+    }>,
+    actionMeta: ActionMeta<{
+      value: string;
+      label: string;
+    }>
+  ) {
+    setPokemon2(newValue?.value);
   }
+
   function handleReset() {
     setLoading(false);
     setFightStarted(false);
@@ -123,6 +143,8 @@ function App() {
         fightStarted={fightStarted}
         handleReset={handleReset}
         error={error}
+        allPokemons={allPokemons || []}
+        hasSelectedPokemons={!pokemon1 || !pokemon2}
       />
       <div className="flex justify-center w-full">
         {!loading && pokemon1Data && pokemon2Data && fightStarted && (
