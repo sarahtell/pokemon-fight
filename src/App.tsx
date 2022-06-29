@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from './components/Form';
 import { PlayerComponent } from './components/PlayerComponent';
 
@@ -29,7 +29,34 @@ function App() {
   const [pokemon2, setPokemon2] = useState<string>();
   const [pokemon1Data, setPokemon1Data] = useState<PokemonData>();
   const [pokemon2Data, setPokemon2Data] = useState<PokemonData>();
+  const [allPokemons, setAllPokemons] = useState<string[]>();
   const [error, setError] = useState<string>();
+
+  useEffect(() => {
+    const allPokemons = getAllPokemons();
+  }, []);
+
+  async function getAllPokemons() {
+    let next = null;
+    const allPokemons = [];
+
+    while (true) {
+      const response: any = await axios.get(next ? next : `${baseUrl}/pokemon/`);
+
+      const pokemonNames = response.data.results.map(
+        (p: { name: string; url: string }) => p.name
+      );
+
+      allPokemons.push(...pokemonNames)
+
+      next = response.data.next;
+
+      if (!next) {
+        break
+      }
+    }
+    setAllPokemons(allPokemons);
+  }
 
   function handleOnchange1(e: React.ChangeEvent<HTMLInputElement>) {
     setPokemon1(e.target.value.toLowerCase());
