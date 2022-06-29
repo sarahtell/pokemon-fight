@@ -1,5 +1,5 @@
 import { Player } from '@remotion/player';
-import { PokemonStats, Skills } from '../App';
+import { Skills } from '../App';
 import { getRounds, Round } from '../lib/round';
 import { MyVideo } from './MyVideo';
 
