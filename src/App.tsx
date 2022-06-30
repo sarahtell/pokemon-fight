@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ActionMeta, SingleValue } from 'react-select';
 import Form from './components/Form';
 import { PlayerComponent } from './components/PlayerComponent';
+import { allPokemons } from './lib/allPokemons';
 
 const baseUrl = 'https://pokeapi.co/api/v2';
 
@@ -34,38 +35,7 @@ function App() {
   const [pokemon2, setPokemon2] = useState<string>();
   const [pokemon1Data, setPokemon1Data] = useState<PokemonData>();
   const [pokemon2Data, setPokemon2Data] = useState<PokemonData>();
-  const [allPokemons, setAllPokemons] = useState<string[]>();
   const [error, setError] = useState<string>();
-
-  useEffect(() => {
-    setLoading(true);
-    getAllPokemons();
-    setLoading(false);
-  }, []);
-
-  async function getAllPokemons() {
-    let next = null;
-    const allPokemons = [];
-
-    while (true) {
-      const response: any = await axios.get(
-        next ? next : `${baseUrl}/pokemon/`
-      );
-
-      const pokemonNames = response.data.results.map(
-        (p: { name: string; url: string }) => p.name
-      );
-
-      allPokemons.push(...pokemonNames);
-
-      next = response.data.next;
-
-      if (!next) {
-        break;
-      }
-    }
-    setAllPokemons(allPokemons);
-  }
 
   function handleOnchange1(
     newValue: SingleValue<{
@@ -158,7 +128,6 @@ function App() {
   return (
     <div className="flex w-full h-screen items-center justify-center space-y-10 mt-10 flex-col">
       <h1 className="text-3xl font-sans">Choose your Pokémon champions!</h1>
-      {!loading && (
         <Form
           handleOnchange1={handleOnchange1}
           handleOnchange2={handleOnchange2}
@@ -169,7 +138,6 @@ function App() {
           allPokemons={allPokemons || []}
           hasSelectedPokemons={!pokemon1 || !pokemon2}
         />
-      )}
       <div className="flex justify-center w-full">
         {!loading && pokemon1Data && pokemon2Data && fightStarted && (
           <PlayerComponent
