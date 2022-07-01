@@ -4,6 +4,7 @@ import { getRounds, Round } from '../lib/round';
 import { MyVideo } from './MyVideo';
 import { preloadAudio } from '@remotion/preload';
 import { useEffect, useState } from 'react';
+import { staticFile } from 'remotion';
 
 export type PlayerComponentProps = {
   pokemon1Name: string;
@@ -37,8 +38,9 @@ function calculateLengthOfVideo(rounds: Round[]): number {
   return videoLength;
 }
 
+preloadAudio(staticFile('pokemon.mp3'));
+
 export function PlayerComponent(props: PlayerComponentProps): any {
-  const [loading, setLoading] = useState(true);
 
   const rounds = getRounds(
     props.pokemon1Skills,
@@ -46,15 +48,6 @@ export function PlayerComponent(props: PlayerComponentProps): any {
     props.pokemon1Name,
     props.pokemon2Name
   );
-
-  useEffect(() => {
-    preloadAudio('../components/music/pokemon.mp3');
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    return "Loading..."
-  }
 
   return (
     <Player

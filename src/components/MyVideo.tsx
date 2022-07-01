@@ -1,22 +1,25 @@
-import { AbsoluteFill, Series, Audio, Sequence } from 'remotion';
-import { PlayerComponentProps, POKEMON_INTRO_LENGTH, POKEMON_PRESENTATION_LENGTH, POKEMON_ROUND_LENGTH, POKEMON_WINNER_LENGTH } from './PlayerComponent';
+import { Audio, Series, staticFile } from 'remotion';
+import { Round } from '../lib/round';
+import { Header } from './Header';
+import { Layout } from './Layout';
+import {
+  PlayerComponentProps,
+  POKEMON_INTRO_LENGTH,
+  POKEMON_PRESENTATION_LENGTH,
+  POKEMON_ROUND_LENGTH,
+  POKEMON_WINNER_LENGTH,
+} from './PlayerComponent';
+import { PokemonFight } from './PokemonFight';
 import { PokemonIntro } from './PokemonIntro';
 import { PokemonPresentation } from './PokemonPresentation';
-import audio from './music/pokemon.mp3';
-import { Layout } from './Layout';
-import { Header } from './Header';
-import { getRounds, Round } from '../lib/round';
-import { PokemonFight } from './PokemonFight';
 import { PokemonWinner } from './PokemonWinner';
-import React from 'react';
 
-export const MyVideo = (props: PlayerComponentProps & {rounds: Round[]}) => {
-
-  const lastRound = props.rounds[props.rounds.length-1]
+export const MyVideo = (props: PlayerComponentProps & { rounds: Round[] }) => {
+  const lastRound = props.rounds[props.rounds.length - 1];
 
   return (
     <>
-      <Audio src={audio} volume={0.5} startFrom={100} />
+      <Audio src={staticFile('pokemon.mp3')} volume={0.5} startFrom={100} />
       <Layout>
         <Header
           pokemon1Skills={props.pokemon1Skills}
@@ -54,9 +57,9 @@ export const MyVideo = (props: PlayerComponentProps & {rounds: Round[]}) => {
                   id2={props.pokemon1Id}
                   attacker={round.attacker}
                 />
-              </Series.Sequence>)
-          })
-          }
+              </Series.Sequence>
+            );
+          })}
           <Series.Sequence durationInFrames={POKEMON_WINNER_LENGTH}>
             <PokemonWinner
               pokemon1Skills={lastRound.pokemon1Skills}
