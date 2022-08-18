@@ -156,7 +156,7 @@ function App() {
       </div>
       <a
         className="underline"
-        href="https://github.com/sarahtell/sarah-portfolio"
+        href="https://github.com/sarahtell/pokemon-fight"
         target="_blank"
         rel="noopener noreferrer"
       >
